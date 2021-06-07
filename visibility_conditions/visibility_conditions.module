@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Visibility Conditions module file.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+
+/**
+ * Implements hook_help().
+ */
+function visibility_conditions_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.visibility_conditions':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom module for enabling visibility conditions for blocks.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function visibility_conditions_form_block_form_alter(&$form, FormStateInterface $form_state) {
+  if (isset($form['visibility']['selected_article'])) {
+    // Attach related library.
+    $form['visibility_tabs']['#attached']['library'][] = 'visibility_conditions/block_special_articles';
+  }
+}

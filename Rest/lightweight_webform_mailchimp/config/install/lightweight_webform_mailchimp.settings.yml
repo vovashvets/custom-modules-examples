@@ -1,0 +1,7 @@
+api_key: 'API_KEY'
+list_name: 'LIST_NAME'
+tag_name: 'TAG_NAME'
+form_id: 'FORM_ID'
+field_key: 'FIELD_KEY'
+first_name: 'FIRST_NAME_FIELD'
+last_name: 'LAST_NAME_FIELD'

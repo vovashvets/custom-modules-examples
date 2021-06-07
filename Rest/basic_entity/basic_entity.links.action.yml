@@ -1,0 +1,11 @@
+entity.default_entity.add_form:
+  route_name: entity.default_entity.add_page
+  title: 'Add Default entity'
+  appears_on:
+    - entity.default_entity.collection
+entity.default_entity_type.add_form:
+  route_name: entity.default_entity_type.add_form
+  title: 'Add Default entity type'
+  appears_on:
+    - entity.default_entity_type.collection
+

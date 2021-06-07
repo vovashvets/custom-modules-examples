@@ -1,0 +1,14 @@
+{
+  "name": "drupal/multiple_nodes_post",
+  "type": "drupal-module",
+  "description": "Testing the massive import of entities via single POST Request",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/multiple_nodes_post",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/multiple_nodes_post",
+    "source": "http://cgit.drupalcode.org/multiple_nodes_post"
+  },
+  "require": { }
+}

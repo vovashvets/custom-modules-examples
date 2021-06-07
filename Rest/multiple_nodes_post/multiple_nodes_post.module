@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains multiple_nodes_post.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function multiple_nodes_post_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the multiple_nodes_post module.
+    case 'help.page.multiple_nodes_post':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Testing the massive import of entities via single POST Request') . '</p>';
+      return $output;
+
+    default:
+  }
+}

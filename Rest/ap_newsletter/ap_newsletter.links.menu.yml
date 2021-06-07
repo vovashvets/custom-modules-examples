@@ -1,0 +1,6 @@
+ap_newsletter.settings:
+  title: 'AP Newsletter'
+  description: 'Manage your AP Newsletter Connection to Mailchimp.'
+  route_name: ap_newsletter.admin_settings_form
+  parent: system.admin_config_development
+  weight: 5

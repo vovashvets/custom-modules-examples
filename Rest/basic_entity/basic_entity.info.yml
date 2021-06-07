@@ -1,0 +1,5 @@
+name: 'Basic Entity'
+type: module
+description: 'Basic Entity only for REST Testing'
+core: 8.x
+package: 'Custom'

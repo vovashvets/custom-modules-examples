@@ -1,0 +1,3 @@
+administer lightweight_webform_mailchimp:
+  title: 'Administer Lightweight Webform Mailchimp'
+  description: 'Configure and create the connection from Drupal to Mailchimp.'

@@ -1,0 +1,14 @@
+{
+  "name": "drupal/rest_resource",
+  "type": "drupal-module",
+  "description": "Testing Rest Resources by Drupal Console in Drupal 8",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/rest_resource",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/rest_resource",
+    "source": "http://cgit.drupalcode.org/rest_resource"
+  },
+  "require": { }
+}

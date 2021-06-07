@@ -1,0 +1,14 @@
+{
+  "name": "drupal/basic_entity",
+  "type": "drupal-module",
+  "description": "Basic Entity only for REST Testing",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/basic_entity",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/basic_entity",
+    "source": "http://cgit.drupalcode.org/basic_entity"
+  },
+  "require": { }
+}

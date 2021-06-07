@@ -1,0 +1,28 @@
+lightweight_webform_mailchimp.settings:
+  type: config_object
+  label: 'Lightweight Webform Mailchimp Settings'
+  mapping:
+    api_key: 
+      type: text
+      label: 'API Key for Mailchimp Account.'
+      translatable: false
+    list_name: 
+      type: text
+      label: 'Name of the selected Mailchimp list'
+      translatable: false
+    tag_name:
+      type: text
+      label: 'Name of the selected Mailchimp tag.'
+    form_id:
+      type: text
+      label: 'ID of the selected webform.'
+    field_key:
+      type: text
+      label: 'Field name key for processing.'
+    first_name:
+      type: text
+      label: 'Field for the First Name of the user.'
+    last_name:
+      type: text
+      label: 'Field for the Last Name of the user.'
+      

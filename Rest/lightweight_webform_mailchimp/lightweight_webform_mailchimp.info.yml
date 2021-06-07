@@ -1,0 +1,9 @@
+name: Lightweight Webform Mailchimp
+type: module
+description: 'Manage and processing a Mailchimp lightweight connection from a Drupal webform.'
+package: 'Other'
+core: 8.x
+core_version_requirement: ^8 || ^9
+configure: lightweight_webform_mailchimp.admin_settings_form
+dependencies:
+  - drupal:webform

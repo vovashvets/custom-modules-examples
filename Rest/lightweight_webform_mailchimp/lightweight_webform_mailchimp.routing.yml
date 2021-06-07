@@ -1,0 +1,7 @@
+lightweight_webform_mailchimp.admin_settings_form:
+  path: '/admin/config/development/lightweight_webform_mailchimp'
+  defaults:
+    _form: '\Drupal\lightweight_webform_mailchimp\Form\LightweightWebformMailchimpAdminSettingsForm'
+    _title: 'Lightweight Webform Mailchimp Settings'
+  requirements:
+    _permission: 'administer lightweight_webform_mailchimp'

@@ -1,0 +1,4 @@
+services:
+  lightweight_webform_mailchimp.client:
+    class: \Drupal\lightweight_webform_mailchimp\Services\LightweightWebformMailchimpClient
+    arguments: ['@http_client', '@config.factory']

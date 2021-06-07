@@ -1,0 +1,3 @@
+administer ap_newsletter:
+  title: 'Administer AP Newsletter'
+  description: 'Configure and create the connection from Drupal to Mailchimp.'

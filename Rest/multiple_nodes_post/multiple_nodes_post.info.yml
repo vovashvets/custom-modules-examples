@@ -1,0 +1,5 @@
+name: 'multiple_nodes_POST'
+type: module
+description: 'Testing the massive import of entities via single POST Request'
+core: 8.x
+package: 'Custom'

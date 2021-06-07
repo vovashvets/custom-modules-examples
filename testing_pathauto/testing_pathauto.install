@@ -1,0 +1,261 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Testing Pathauto module.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Implements hook_install().
+ */
+function testing_pathauto_install() {
+  \Drupal::messenger()->addStatus(__FUNCTION__);
+
+  creates_new_vocabularies();
+  creates_terms_in_vocabularies('films', 'songs', 'series');
+  creates_new_patterns();
+  aliases_unique_term(14);
+  aliases_vid_1();
+  aliases_vid_2();
+  aliases_vid_3();
+}
+
+
+function creates_new_vocabularies() {
+  // Creates a pair of new vocabularies for taxonomy terms.
+  $vid_1 = 'films';
+  $name_1 = 'Films';
+  $vocabulary_1 = Vocabulary::create([
+    'vid' => $vid_1,
+    'machine_name' => $vid_1,
+    'description' => 'Stores items for categorizing films.',
+    'name' => $name_1,
+  ]);
+  $vocabulary_1->save();
+
+  $vid_2 = 'series';
+  $name_2 = 'Series';
+  $vocabulary_2 = Vocabulary::create([
+    'vid' => $vid_2,
+    'machine_name' => $vid_2,
+    'description' => 'Stores taxonomy terms for series items.',
+    'name' => $name_2,
+  ]);
+  $vocabulary_2->save();
+}
+
+function creates_terms_in_vocabularies($vid1, $vid2, $vid3) {
+  // Creates taxonomy terms for each new vocabulary.
+  $term_one = Term::create([
+  'vid' => $vid1,
+  'langcode' => 'en',
+  'name' => 'T_1',
+  'description' => [
+    'value' => '<p>Term number one.</p>',
+    'format' => 'full_html',
+  ],
+  'weight' => -1,
+  'parent' => [0],
+  ]);
+
+  $term_two = Term::create([
+    'vid' => $vid1,
+    'langcode' => 'en',
+    'name' => 'T_2',
+    'description' => [
+      'value' => '<p>Term number two.</p>',
+      'format' => 'full_html',
+    ],
+    'weight' => 1,
+    'parent' => [0],
+  ]);
+  // Saves the taxonomy terms.
+  $term_one->save();
+  $term_two->save();
+
+  for ($i = 1; $i <=10; $i++) {
+    ${'term_' . $i} = Term::create([
+    'vid' => $vid2,
+    'langcode' => 'en',
+    'name' => 'term_' . $i . '_NAME_SONG',
+    'description' => [
+      'value' => '<p>Term number ' . $i .'</p>',
+      'format' => 'full_html',
+    ],
+    'weight' => $i,
+    'parent' => [0],
+    ]);
+
+    // Saves the current taxonomy term.
+    ${'term_' . $i}->save();
+  }
+
+  for ($i = 1; $i <= 60; $i++) {
+    ${'term_' . $i} = Term::create([
+    'vid' => $vid3,
+    'langcode' => 'en',
+    'name' => 'term_' . $i . '_NAME_SERIE',
+    'description' => [
+      'value' => '<p>Term number ' . $i .'</p>',
+      'format' => 'full_html',
+    ],
+    'weight' => $i,
+    'parent' => [0],
+    ]);
+
+    // Saves the current taxonomy term.
+    ${'term_' . $i}->save();
+  }
+}
+
+function creates_new_patterns() {
+  // Sets values for a new pattern for films vocabulary.
+  $uuid_1 = \Drupal::service('uuid')->generate();
+
+  $data_1 = [
+    'id' => 'my_pattern_machine_name_1',
+    'label' => 'Testing pattern 1 for Films',
+    'type' => 'canonical_entities:taxonomy_term',
+    'pattern' => '/films/[term:name]',
+    'selection_criteria' => [
+      $uuid_1 => [
+        'id' => 'entity_bundle:taxonomy_term',
+        'bundles' => [
+          'films' => 'films',
+        ],
+        'negate' => FALSE,
+        'context_mapping' => [
+          'taxonomy_term' => 'taxonomy_term',
+        ],
+        'uuid' => $uuid_1,
+      ],
+    ],
+    'weight' => -4,
+  ];
+  // Creates the new configuration entity and saves it.
+  $pattern_1 = \Drupal::entityTypeManager()->getStorage('pathauto_pattern')->create($data_1);
+  $pattern_1->save();
+
+  // Sets values for a new pattern for songs vocabulary.
+  $uuid_2 = \Drupal::service('uuid')->generate();
+
+  $data_2 = [
+    'id' => 'my_pattern_machine_name_2',
+    'label' => 'Testing pattern 2 for Songs',
+    'type' => 'canonical_entities:taxonomy_term',
+    'pattern' => '/songs/[term:name]',
+    'selection_criteria' => [
+      $uuid_2 => [
+        'id' => 'entity_bundle:taxonomy_term',
+        'bundles' => [
+          'songs' => 'songs',
+        ],
+        'negate' => FALSE,
+        'context_mapping' => [
+          'taxonomy_term' => 'taxonomy_term',
+        ],
+        'uuid' => $uuid_2,
+      ],
+    ],
+    'weight' => -3,
+  ];
+
+  // Creates the new configuration entity and saves it.
+  $pattern_2 = \Drupal::entityTypeManager()->getStorage('pathauto_pattern')->create($data_2);
+  $pattern_2->save();
+
+  // Sets values for a new pattern for series vocabulary.
+  $uuid_3 = \Drupal::service('uuid')->generate();
+
+  $data_3 = [
+    'id' => 'my_pattern_machine_name_3',
+    'label' => 'Testing pattern 3 for Series',
+    'type' => 'canonical_entities:taxonomy_term',
+    'pattern' => '/series/[term:name]',
+    'selection_criteria' => [
+      $uuid_3 => [
+        'id' => 'entity_bundle:taxonomy_term',
+        'bundles' => [
+          'series' => 'series',
+        ],
+        'negate' => FALSE,
+        'context_mapping' => [
+          'taxonomy_term' => 'taxonomy_term',
+        ],
+        'uuid' => $uuid_3,
+      ],
+    ],
+    'weight' => -2,
+  ];
+
+  // Creates the new configuration entity and saves it.
+  $pattern_3 = \Drupal::entityTypeManager()->getStorage('pathauto_pattern')->create($data_3);
+  $pattern_3->save();
+
+  $data_4 = [
+    'id' => 'my_pattern_machine_name_4',
+    'label' => 'Testing pattern for isolated terms',
+    'type' => 'canonical_entities:taxonomy_term',
+    'pattern' => '/random/[term:name]',
+    'weight' => -1,
+  ];
+
+  // Creates the new configuration entity and saves it.
+  $pattern_4 = \Drupal::entityTypeManager()->getStorage('pathauto_pattern')->create($data_4);
+  $pattern_4->save();
+}
+
+function aliases_unique_term($tid) {
+  // Loads a specific taxonomy term and generates a new URL alias. 
+  // Ensure you have a taxonomy term with tid = 14 or change the tid value.
+  // Ok what pathauto pattern will be used in this case? Let's see...
+  $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
+  \Drupal::service('pathauto.generator')->createEntityAlias($term, 'insert');
+}
+
+function aliases_vid_1() {
+
+  // Gets taxonomy terms from films vocabulary using entityTypeManager and conditions.
+  $taxonomy_films_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $query_films = $taxonomy_films_storage->getQuery()
+    ->condition('vid', 'films')
+    ->execute();
+  $entities_films = $taxonomy_films_storage->loadMultiple($query_films);
+
+  // Updates URL aliases just in case of taxonomy terms in films vocabulary.
+  foreach ($entities_films as $entity) {
+    \Drupal::service('pathauto.generator')->createEntityAlias($entity, 'insert');
+  }
+
+}
+
+function aliases_vid_2() {
+ 
+  // Gets taxonomy terms from songs vocabulary using oldschool entityQuery.
+  $taxonomy_songs_query = \Drupal::entityQuery('taxonomy_term')->condition('vid','songs');
+  $query_songs = $taxonomy_songs_query->execute();
+  $entities_songs =  \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadMultiple($query_songs);
+
+  // Updates URL aliases just in case of taxonomy terms in films vocabulary.
+  foreach ($entities_songs as $entity) {
+    \Drupal::service('pathauto.generator')->createEntityAlias($entity, 'insert');
+  }
+}
+
+function aliases_vid_3() {
+
+  // Gets taxonomy terms from series vocabulary using entityTypeManager and conditions.
+  $taxonomy_series_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $query_series = $taxonomy_series_storage->getQuery()
+  ->condition('vid', 'series')
+  ->execute();
+  $entities_series = $taxonomy_series_storage->loadMultiple($query_series);
+
+  // Updates URL aliases just in case of taxonomy terms in films vocabulary.
+  foreach ($entities_series as $entity) {
+  \Drupal::service('pathauto.generator')->createEntityAlias($entity, 'insert');
+  }
+}

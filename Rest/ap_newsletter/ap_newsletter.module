@@ -1,0 +1,179 @@
+<?php
+
+/**
+ * @file
+ * AP Newsletter module file.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\webform\WebformSubmissionInterface;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * Implements hook_help().
+ */
+function ap_newsletter_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.ap_newsletter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom module for managing a <em>Mailchimp</em> connection.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ * @throws Exception
+ */
+function ap_newsletter_webform_submission_presave(WebformSubmissionInterface $webform_submission) {
+  
+  // Accessing only for webform submissions from our selected origin.
+  if (($webform_submission->getWebForm()->id()) == (\Drupal::config('ap_newsletter.settings')->get('form_id'))) {
+
+    // Loads values for Mailchimp from config and the webform submission.
+    $mailchimp_values = \Drupal::config('ap_newsletter.settings');
+    $field_value = $webform_submission->getElementData($mailchimp_values->get('field_key'));
+    $tag_exists = FALSE;
+    $tag_value = $webform_submission->getElementData($mailchimp_values->get('tag_name'));
+    
+    // Processing personal data fields if not exists in the webform original structure.
+    if($mailchimp_values->get('first_name') != 'FIRST_NAME_FIELD'){
+      $contact_firstname = $webform_submission->getElementData($mailchimp_values->get('first_name'));
+    } else {
+      $contact_firstname = 'Name User';
+    }
+    if($mailchimp_values->get('last_name') != 'LAST_NAME_FIELD'){
+      $contact_lastname = $webform_submission->getElementData($mailchimp_values->get('last_name'));
+    } else {
+      $contact_lastname = ' Last Name User';
+    }
+    $api_key = $mailchimp_values->get('api_key');
+    $list_name = $mailchimp_values->get('list_name');
+    $list_id = '';
+    
+    // Builds the URLs using the base server key name.
+    $dc = (explode('-', $api_key, 2))[1];
+    $url = 'https://' . $dc . '.' . 'api.mailchimp.com/3.0/';
+    $url_lists = $url . 'lists';
+    $url_contact = $url_lists . '/';
+    
+    // Loads a HTTP client from the Drupal service container.
+    $client = \Drupal::service('http_client');
+    
+       try{
+        
+         // First - Try an initial connection.
+         $request_initial = $client->get($url, [
+           'auth' => ['anystring', $api_key],
+           ]);
+         $response_initial = json_decode($request_initial->getBody(), true);
+         $code = $request_initial->getStatusCode();
+     
+         if($code == 200){
+           \Drupal::logger('ap_newsletter')->notice('Response code 200, connected to account name: @account', ['@account' => $response_initial['account_name']]);
+           
+           // Gets the lists from an account.
+           $request_lists = $client->get($url_lists, [
+             'auth' => ['anystring', $api_key],
+           ]);
+           $response_lists = json_decode($request_lists->getBody(), true);
+           $array_lists = $response_lists['lists'];
+           
+           // Loops over all the lists looking for the selected by name.
+           foreach ($array_lists as $position => $list) {
+             if($list['name'] === $list_name) {
+               $list_id = $list['id'];
+             }
+           }
+           
+           // Now we are going to load the new contact in the selected list.
+           $url_useradd = $url_contact . $list_id . '/members/';
+           
+           // Builds the Body for the request.
+           $serialized_body = json_encode([
+             'email_address' => $field_value,
+             'status' => 'subscribed',
+             'merge_fields' => [
+               'FNAME' => $contact_firstname,
+               'LNAME' => $contact_lastname,
+             ]
+           ]);
+           
+           // Builds the request.
+           $request_contact = $client->post($url_useradd, [
+             'auth' => ['anystring', $api_key],
+             'body' => $serialized_body,
+             'headers' => [
+               'Content-Type' => 'application/hal+json',
+             ],
+           ]);
+           
+           // Get the segment ID assigned to a tag.
+           $url_segment =  $url_contact .= $list_id . '/segments';
+           $request_segment = $client->get($url_segment, [
+             'auth' => ['anystring', $api_key],
+           ]);
+           $response_segment = (json_decode($request_segment->getBody(), true))['segments'];
+           foreach ($response_segment as $position => $segment){
+             if ($segment['name'] == $tag_value) {
+               $segment_id = $segment['id'];
+               $tag_exists = TRUE;
+             }
+           }
+           
+           if($tag_exists) {
+             // Then load the tag for the new contact using the segment ID.
+             $url_segment_add_member = $url_segment . '/' . $segment_id . '/members';
+
+             // Builds the Body for the request.
+             $serialized_body_segment = json_encode(['email_address' => $field_value]);
+
+             // Builds the request.
+             $request_user = $client->post($url_segment_add_member, [
+               'auth' => ['anystring', $api_key],
+               'body' => $serialized_body_segment,
+               'headers' => [
+                 'Content-Type' => 'application/hal+json',
+               ],
+             ]);
+             
+           } else {
+             // TODO - Create the tag if not exists and assign the user.
+           }
+
+
+
+         }else {
+           \Drupal::logger('ap_newsletter')->error(t('Response from Mailchimp was an error code: @code'), ['@code' => $code]);
+           \Drupal::messenger()->addMessage(t('We are experiencing technical problems, please try again after a few minutes.'), 'error');
+           throw  new Exception("Mailchimp returns a error code, not 200. Try again, please.");
+         }
+       }
+       catch (ClientException $e) {
+         \Drupal::logger('ap_newsletter')->error('ClientException - Error connecting with Mailchimp, error: @error', ['@error' => $e->getMessage()]);
+         \Drupal::messenger()->addMessage(t('We are experiencing technical problems, please try again after a few minutes.'), 'error');
+
+       }
+       catch (BadResponseException $e) {
+         \Drupal::logger('ap_newsletter')->error('BadResponseException - Error connecting with Mailchimp, error: @error', ['@error' => $e->getMessage()]);
+         \Drupal::messenger()->addMessage(t('We are experiencing technical problems, please try again after a few minutes.'), 'error');
+       }
+       catch (RequestException $e) {
+         \Drupal::logger('ap_newsletter')->error('Request Exception - Error connecting with Mailchimp, error: @error', ['@error' => $e->getMessage()]);
+         \Drupal::messenger()->addMessage(t('We are experiencing technical problems, please try again after a few minutes.'), 'error');
+
+       }
+      catch (GuzzleException $e) {
+        \Drupal::logger('ap_newsletter')->error('GuzzleException - Error connecting with Mailchimp, error: @error', ['@error' => $e->getMessage()]);
+        \Drupal::messenger()->addMessage(t('We are experiencing technical problems, please try again after a few minutes.'), 'error');
+      }
+       catch (Exception $e) {
+         \Drupal::logger('ap_newsletter')->error('Exception - Error connecting with Mailchimp, error: @error', ['@error' => $e->getMessage()]);
+         \Drupal::messenger()->addMessage(t('We are experiencing technical problems, please try again after a few minutes.'), 'error');
+       }
+  }
+}

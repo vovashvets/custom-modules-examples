@@ -1,0 +1,5 @@
+block_special_articles: 
+  js: 
+    js/selected_articles_conditions.js: {}
+  dependencies: 
+    - block/drupal.block

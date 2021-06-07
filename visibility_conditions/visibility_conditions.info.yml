@@ -1,0 +1,6 @@
+name: Visibility Conditions
+type: module
+description: 'Provide Plugins for Visibility conditions.'
+package: Workshop Drupal
+core: 8.x
+core_version_requirement: ^8 || ^9

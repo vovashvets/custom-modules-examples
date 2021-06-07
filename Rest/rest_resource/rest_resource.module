@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains rest_resource.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function rest_resource_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rest_resource module.
+    case 'help.page.rest_resource':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Testing Rest Resources by Drupal Console in Drupal 8') . '</p>';
+      return $output;
+
+    default:
+  }
+}

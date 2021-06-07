@@ -1,0 +1,9 @@
+name: AP Newsletter
+type: module
+description: 'Manage and processing a Mailchimp lightweight connection from a Drupal webform.'
+package: 'Custom'
+core: 8.x
+core_version_requirement: ^8 || ^9
+configure: sp_newsletter.admin_settings_form
+dependencies:
+  - drupal:webform

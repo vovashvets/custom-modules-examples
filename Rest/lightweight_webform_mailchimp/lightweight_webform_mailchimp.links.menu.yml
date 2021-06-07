@@ -1,0 +1,6 @@
+lightweight_webform_mailchimp.settings:
+  title: 'Lightweight W-M'
+  description: 'Manage your Webform connection to Mailchimp.'
+  route_name: lightweight_webform_mailchimp.admin_settings_form
+  parent: system.admin_config_development
+  weight: 5

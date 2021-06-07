@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Lightweight Webform Mailchimp module file.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function lightweight_webform_mailchimp_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.lightweight_webform_mailchimp':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom module for managing a lightweight Connection from Webform to <em>Mailchimp</em>.') . '</p>';
+      return $output;
+  }
+}

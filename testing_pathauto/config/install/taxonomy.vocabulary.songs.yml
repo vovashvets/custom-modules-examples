@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - testing_pathauto
+name: Songs
+vid: songs
+description: 'Provides categories for songs.'
+hierarchy: 0
+weight: 0
