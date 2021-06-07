@@ -1,0 +1,43 @@
+# Spanish translation of managing_activities module
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Managing Activities (1.x-dev)\n"
+"POT-Creation-Date: 2020-05-25 10:14+0100\n"
+"PO-Revision-Date: 2020-05-24 10:14+0100\n"
+"Last-Translator: David Rodríguez <davidjguru@gmail.com>\n"
+"Language-Team: Spanish <davidjguru@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "No applications found."
+msgstr "No se encontraron solicitudes."
+
+msgid "Dear User: @user, Here you can change the status for applications."
+msgstr "Querido Usuario: @user, aquí podrás cambiar el estado de las solicitudes."
+
+msgid "Add here the information about the different configuration values for the Managing Activities Config Form."
+msgstr "Añade aquí la información acerca de los diferentes valores de configuración para el módulo Managing Activities."
+
+msgid "Minimum Age for registration"
+msgstr "Edad mínima para registro"
+
+msgid "Add a minimum age for attendee registration."
+msgstr "Añade una edad mínima para el registro de asistencia."
+
+msgid "Email direction for notices"
+msgstr "Dirección de correo electrónico para avisos"
+
+msgid "Add a email address for notices."
+msgstr "Añade una dirección de correo electrónico para recibir avisos."
+
+msgid "We will process your request and respond by mail as soon as possible."
+msgstr "Procesaremos su petición y responderemos por correo electrónico tan pronto como sea posible."
+
+msgid "Pick your event"
+msgstr "Escoge tu evento"
+
+msgid "Select the event where you want to apply."
+msgstr "Selecciona el evento para el que quieres solicitar asistenciar"

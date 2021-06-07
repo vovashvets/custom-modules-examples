@@ -1,0 +1,42 @@
+uuid: 11111111-2222-3333-4444-555555555555
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - migration_google_sheet
+id: taxonomy_google_sheet
+label: 'Migrating Taxonomy'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: google_sheets
+  urls: 'http://spreadsheets.google.com/feeds/list/1bKGbPbgeuXaBfcKetaDqoDimmYcerQY_hT1rqzw4TbM/1/public/values?alt=json'
+  fields:
+    - name: id
+      label: 'Id'
+      selector: id
+    - name: name
+      label: 'Name'
+      selector: name
+    - name: description
+      label: 'Description'
+      selector: description
+    - name: url
+      label: 'Url'
+      selector: url
+    - name: published
+      label: 'Published'
+      selector: published
+  ids:
+    id:
+      type: integer
+process:
+  name: name
+  description: description
+  path: url
+  status: published
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: tags
+ 

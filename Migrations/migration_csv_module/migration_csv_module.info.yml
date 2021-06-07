@@ -1,0 +1,9 @@
+name: 'Migration CSV Module'
+type: module
+description: 'Just a basic example of basic migration process with a CSV source.'
+package: 'Migrations Examples 2000'
+core: 8.x
+dependencies:
+  - drupal:migrate
+  - drupal:migrate_tools
+  - drupal:migrate_plus

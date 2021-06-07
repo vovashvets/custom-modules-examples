@@ -1,0 +1,32 @@
+managing_activities.main:
+  path: '/admin/managing-activities'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Managing Activities'
+  requirements:
+    _permission: 'administer content' 
+
+managing_activities.admin_settings_form:
+  path: '/admin/managing-activities/settings'
+  defaults:
+    _form: '\Drupal\managing_activities\Form\ManagingActivitiesAdminSettingsForm'
+    _title: 'Managing Activities Settings'
+  requirements:
+    _permission: 'administer managing_activities'
+
+managing_activities.register_form:
+  path: '/register-form'
+  defaults:
+    _form: '\Drupal\managing_activities\Form\ManagingActivitiesRegisterForm'
+    _title: 'Register Form for activities and events'
+  requirements:
+    _permission: 'access content'
+    
+managing_activities.applications_form:
+  path: '/admin/managing-activities/applications'
+  defaults:
+    _form: '\Drupal\managing_activities\Form\ManagingActivitiesApplicationsForm'
+    _title: 'Managing Applications for Events'
+  requirements:
+    _permission: 'administer managing_activities applications'
+      

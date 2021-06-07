@@ -1,0 +1,7 @@
+my_random_module.default_random_form:
+  path: '/my_random_module/forms/random_form'
+  defaults:
+    _form: '\Drupal\my_random_module\Form\RandomClassForm'
+    _title: 'RandomClassForm'
+  requirements:
+    _access: 'TRUE'

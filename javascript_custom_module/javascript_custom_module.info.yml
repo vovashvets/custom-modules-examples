@@ -1,0 +1,5 @@
+name: 'Custom Module for JavaScript'
+type: module
+description: 'This is a custom module for JavaScript.'
+core_version_requirement: ^8 || ^9
+package: 'Workshop Drupal'

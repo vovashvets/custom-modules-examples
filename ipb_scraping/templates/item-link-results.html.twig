@@ -1,0 +1,26 @@
+{#
+items: Array compuesto por enlaces y valores:
+- values: Array con los elementos.
+- count: Cuenta de resultados procesados.
+empty: Mensaje cuando no hay elementos.
+#}
+
+<section>
+{% if items.count | length > 0 %}
+  <br>
+  <hr>
+  <div>
+    <h3>Were resolved: {{ items.count }} external links:</h3>
+  </div>
+  <hr>
+  <br>
+  {% set links = items.values  %}
+  {% for item in links %}
+    <a href="{{ item.link }}" title="{{ item.naming}}">{{ item.naming }}</a><br>
+  {% endfor %}
+{% else %}
+  <div>
+    <h3>{{ empty }}</h3>
+  </div>
+{% endif %}
+</section>

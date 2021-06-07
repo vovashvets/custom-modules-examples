@@ -1,0 +1,7 @@
+name: 'Migration Basic Module'
+type: module
+description: 'Just a basic example of basic migration process.'
+package: 'Migrations Examples 2000'
+core: 8.x
+dependencies:
+  - drupal:migrate

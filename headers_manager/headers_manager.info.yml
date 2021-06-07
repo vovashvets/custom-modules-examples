@@ -1,0 +1,5 @@
+name: Headers Manager
+description: Custom Module created to manage meta-info from head and headers.
+package: 'Workshop Drupal'
+type: module
+core: 8.x

@@ -1,0 +1,5 @@
+name: 'Basic Custom Module'
+description: 'Hello World Basic Custom module.'
+type: module
+core_version_requirement: ^8 || ^9
+package: 'Workshop Drupal'

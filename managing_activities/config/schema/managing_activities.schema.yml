@@ -1,0 +1,29 @@
+managing_activities.settings:
+  type: config_object
+  label: 'Managing Activities Settings'
+  mapping:
+    taxonomy_events_name:
+      type: string
+      label: 'Name for the taxonomy related with events and activities.'
+      translatable: true
+    taxonomy_application_status:
+      type: string
+      label: 'Current Status for the application submit.'
+      translatable: true
+    minimum_age:
+      type: integer
+      label: 'Minimum Age for assistant'
+      translatable: false
+    notice_mail:
+      type: string
+      label: 'Destiny mail of requests for assistance.'
+    notice_mail_message:
+      type: string
+      label: 'Message for the notification mail.'
+      translatable: true
+    module_name:
+      type: string
+      label: 'Module Name for references in Hooks.'
+    region_for_block:
+      type: string
+      label: 'Visual Region of your current Theme.'

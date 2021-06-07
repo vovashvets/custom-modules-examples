@@ -1,0 +1,6 @@
+name: RegExp Checker
+type: module
+description: 'Offers an internal page for check Regular Expressions in a Drupal Context.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: 'Workshop Drupal'

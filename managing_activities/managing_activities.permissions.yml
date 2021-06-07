@@ -1,0 +1,7 @@
+administer managing_activities:
+  title: 'Administer Managing Activities'
+  description: 'Configure and create values for Managing Activities.'
+  
+administer managing_activities applications:
+  title: 'Administer Status on Applications'
+  description: 'Administer list of applications.'

@@ -1,0 +1,9 @@
+name: 'Migration Google Sheet Module'
+type: module
+description: 'Migrating data from a Google sheet source.'
+package: 'Migrations Examples 2000'
+core: 8.x
+dependencies:
+  - drupal:migrate
+  - drupal:migrate_tools
+  - drupal:migrate_plus

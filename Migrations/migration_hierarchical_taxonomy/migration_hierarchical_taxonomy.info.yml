@@ -1,0 +1,9 @@
+name: 'Migration Hierarchical Structure'
+type: module
+description: 'Migrating taxonomy terms maintaining the hierarchical structure.'
+package: 'Migrations Examples 2000'
+core: 8.x
+dependencies:
+  - drupal:migrate
+  - drupal:migrate_tools
+  - drupal:migrate_plus

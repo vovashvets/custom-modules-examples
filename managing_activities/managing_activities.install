@@ -1,0 +1,213 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\block\Entity\Block;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Component\Utility\Random;
+use Drupal\node\Entity\Node;
+
+/**
+ * Implements hook_install().
+ */
+function managing_activities_install() {
+
+  // Creating the default taxonomy terms.
+  $vid_1 = \Drupal::config('managing_activities.settings')->get('taxonomy_events_name');
+  $terms_1 = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid_1, 0, NULL, FALSE);
+  $vid_2 = \Drupal::config('managing_activities.settings')->get('taxonomy_application_status');
+  $terms_2 = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid_2, 0, NULL, FALSE);
+
+  // If the vocabulary was created but is empty fills it with three basic terms.
+  if ((count($terms_1) == 0)) {
+
+    // If the vocabulary is empty, adds three basic terms.
+    $term_one = Term::create([
+      'vid' => $vid_1,
+      'langcode' => 'en',
+      'name' => 'Event number one',
+      'description' => [
+        'value' => '<p>Taxonomy Term for the first event.</p>',
+        'format' => 'full_html',
+      ],
+      'weight' => 1,
+      'parent' => [0],
+    ]);
+    $term_two = Term::create([
+      'vid' => $vid_1,
+      'langcode' => 'en',
+      'name' => 'Event number two',
+      'description' => [
+        'value' => '<p>Taxonomy Term for the second event.</p>',
+        'format' => 'full_html',
+      ],
+      'weight' => 2,
+      'parent' => [0],
+    ]);
+    $term_three = Term::create([
+      'vid' => $vid_1,
+      'langcode' => 'en',
+      'name' => 'Event number three',
+      'description' => [
+        'value' => '<p>Taxonomy Term for the third event.</p>',
+        'format' => 'full_html',
+      ],
+      'weight' => 2,
+      'parent' => [0],
+    ]);
+  }
+  if ((count($terms_2) == 0)) {
+
+    // If the vocabulary is empty, adds three basic terms.
+    $term_four = Term::create([
+      'vid' => $vid_2,
+      'langcode' => 'en',
+      'name' => 'Pending',
+      'description' => [
+        'value' => '<p>Taxonomy Term for the pending state.</p>',
+        'format' => 'full_html',
+      ],
+      'weight' => 1,
+      'parent' => [0],
+    ]);
+    $term_five = Term::create([
+      'vid' => $vid_2,
+      'langcode' => 'en',
+      'name' => 'Accepted',
+      'description' => [
+        'value' => '<p>Taxonomy Term for the accepted state.</p>',
+        'format' => 'full_html',
+      ],
+      'weight' => 2,
+      'parent' => [0],
+    ]);
+    $term_six = Term::create([
+      'vid' => $vid_2,
+      'langcode' => 'en',
+      'name' => 'Denied',
+      'description' => [
+        'value' => '<p>Taxonomy Term for the denied state.</p>',
+        'format' => 'full_html',
+      ],
+      'weight' => 2,
+      'parent' => [0],
+    ]);
+  }
+  // Saving the taxonomy terms.
+  $term_one->save();
+  $term_two->save();
+  $term_three->save();
+  $term_four->save();
+  $term_five->save();
+  $term_six->save();
+
+  // Creating nodes as Applications.
+  // Asks for the current time.
+  $requested_time = \Drupal::time()->getRequestTime();
+
+  // Gets all the terms from the former taxonomies.
+  $vid_1 = \Drupal::config('managing_activities.settings')->get('taxonomy_events_name');
+  $terms_1 = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid_1, 0, NULL, FALSE);
+  $vid_2 = \Drupal::config('managing_activities.settings')->get('taxonomy_application_status');
+  $terms_2 = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid_2, 0, NULL, FALSE);
+  $random = new Random();
+
+  $node_application_one = Node::create([
+    'type' => 'application',
+    'langcode' => 'en',
+    'created' => $requested_time,
+    'changed' => $requested_time,
+    'uid' => 1,
+    'status' => 1,
+    'title' => 'title 1',
+    'field_application_status' => $terms_2[0]->tid,
+    'field_event_id' => $terms_1[0]->tid,
+    'field_date_of_birth' => '2000-12-31',
+    'field_first_name' => $random->name(5, TRUE),
+    'field_last_name' => $random->name(5, TRUE),
+    'field_identification_number' => $random->name(9, TRUE),
+    'field_email' => 'one@node.com',
+  ]);
+  $node_application_two = Node::create([
+    'type' => 'application',
+    'langcode' => 'en',
+    'created' => $requested_time,
+    'changed' => $requested_time,
+    'uid' => 1,
+    'status' => 1,
+    'title' => 'title 2',
+    'field_application_status' => $terms_2[1]->tid,
+    'field_event_id' => $terms_1[1]->tid,
+    'field_date_of_birth' => '2000-12-31',
+    'field_first_name' => $random->name(5, TRUE),
+    'field_last_name' => $random->name(5, TRUE),
+    'field_identification_number' => $random->name(9, TRUE),
+    'field_email' => 'two@node.com',
+  ]);
+  $node_application_three = Node::create([
+    'type' => 'application',
+    'langcode' => 'en',
+    'created' => $requested_time,
+    'changed' => $requested_time,
+    'uid' => 1,
+    'status' => 1,
+    'title' => 'title 3',
+    'field_application_status' => $terms_2[2]->tid,
+    'field_event_id' => $terms_1[2]->tid,
+    'field_date_of_birth' => '2000-12-31',
+    'field_first_name' => $random->name(5, TRUE),
+    'field_last_name' => $random->name(5, TRUE),
+    'field_identification_number' => $random->name(9, TRUE),
+    'field_email' => 'three@node.com',
+  ]);
+
+  // Saves the nodes.
+  $node_application_one->save();
+  $node_application_two->save();
+  $node_application_three->save();
+
+  // Builds a new visual block for the Register Form in the current active Theme.
+  // Getting info about the current active Theme in the Drupal Installation.
+  $theme_name = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  $values = [
+    'id' => 'managingactivitiesregisterblock',
+    'plugin' => 'managing_activities_register_block',
+    'region' => \Drupal::config('managing_activities.settings')->get('region_for_block'),
+    'settings' => [
+      'label' => 'Managing Activities Register Block',
+      'id' => 'managing_activities_register_block',
+      'provider' => 'managing_activities',
+      'label_display' => 'visible',
+    ],
+    'theme' => $theme_name,
+    'visibility' => [],
+    'weight' => -7,
+
+  ];
+
+  $block = Block::create($values);
+  $block->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function managing_activities_uninstall() {
+  // Loading services in a static way.
+  $entityTypeManager = \Drupal::service('entity_type.manager');
+  $nodeStorage  = \Drupal::entityTypeManager()->getStorage('node');
+
+  // Query all nodes.
+  $nids = $entityTypeManager->getStorage('node')->getQuery()
+    ->condition('type', 'application')
+    ->execute();
+    
+  // Delete nodes.
+  if (!empty($nids)) {
+    $entities = $nodeStorage->loadMultiple($nids);
+    $nodeStorage->delete($entities);
+  }
+}
+

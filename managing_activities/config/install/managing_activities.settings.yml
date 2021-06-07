@@ -1,0 +1,10 @@
+taxonomy_events_name: 'available_events'
+taxonomy_application_status: 'application_status'
+minimum_age: 18
+notice_mail: 'davidjguru@gmail.com'
+notice_mail_message: 'A new request for assistance was received.'
+accepted_mail_message: 'Your Request was approved by our admins.'
+denied_mail_message: 'Sorry but your request was denied by our admins.'
+pending_mail_message: 'Your Request was changed to a Pending Status. You must wait.'
+module_name: 'managing_activities'
+region_for_block: 'sidebar_first'

@@ -1,0 +1,22 @@
+id: basic_migration_one
+label: 'Custom Basic Migration 2000'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      unique_id: 1
+      page_title: 'Title for migrated node - One'
+      page_content: 'Lorem fistrum mamaar se calle ustée tiene musho pelo.'
+    -
+      unique_id: 2
+      page_title: 'Title for migrated node - Two'
+      page_content: 'Se calle ustée caballo blanco caballo negroorl.'
+  ids:
+    unique_id:
+      type: integer
+process:
+  title: article_title
+  body: article_content
+destination:
+  plugin: 'entity:node'
+  default_bundle: page

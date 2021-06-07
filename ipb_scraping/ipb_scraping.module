@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function ipb_scraping_theme($existing, $type, $theme, $path) {
+  return [
+         'item-link-results' => [
+         'variables' => [
+           'items' => NULL,
+           'empty' => NULL,
+          ],
+         ],
+  ];
+}

@@ -1,0 +1,5 @@
+name: 'My Random module'
+type: module
+description: 'This is a random generated custom module'
+core: 8.x
+package: 'Workshop Drupal'

@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * Contains managing_activities.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function managing_activities_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the managing_activities module.
+    case 'help.page.managing_activities':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('It allows the management of attendees to an activity / event.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function managing_activities_mail($key, &$message, $params) {
+  
+  switch ($key) {
+    case 'register_application':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('[MANAGING.APPLICATIONS] - New request: @id', ['@id' => $params['key_application']]);
+      $message['body'][] = $params['message'];
+      break;
+    case 'denied_application':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('[MANAGING.APPLICATIONS] - Your request was changed: DENIED');
+      $message['body'][] = $params['message'];
+      break;
+    case 'pending_application':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('[MANAGING.APPLICATIONS] - Your request was changed: PENDING');
+      $message['body'][] = $params['message'];
+      break;
+    case 'accepted_application':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('[MANAGING.APPLICATIONS] - Your request was changed: ACCEPTED');
+      $message['body'][] = $params['message'];
+      break;  
+  }
+}
+
+/**
+ * Implements hook_toolbar_alter().
+ */
+function managing_activities_toolbar_alter(&$items) {
+  $items['administration']['#attached']['library'][] =
+    'managing_activities/managing_activities.css';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function managing_activities_theme() {
+  return [
+    'managing_activities' => [
+      'render element' => 'children',
+    ],
+  ];
+}

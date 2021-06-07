@@ -1,0 +1,10 @@
+langcode: es
+status: true
+dependencies:
+  enforced:
+    module:
+      - managing_activities
+name: 'Application Status'
+vid: application_status
+description: 'Taxonomy for registering the status for an application submit.'
+weight: 0

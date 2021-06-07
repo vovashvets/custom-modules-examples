@@ -1,0 +1,12 @@
+name: 'Managing Activities'
+type: module
+description: 'It allows the management of attendees to an activity / event.'
+core: 8.x
+package: Activities
+core_version_requirement: '^8 || ^9'
+configure: managing_activities.admin_settings_form
+dependencies:
+  - menu_ui
+
+'interface translation project': managing_activities
+'interface translation server pattern': 'modules/custom/managing_activities/translations/%language.po'

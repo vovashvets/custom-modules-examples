@@ -1,0 +1,40 @@
+uuid: 1bcec3e7-0a49-4473-87a2-6dca09b91aba
+langcode: en
+status: true
+dependencies: {  }
+id: article_csv_import
+label: 'Migrating articles'
+source:
+  plugin: csv
+  path: modules/custom/migration_csv_module/csv/migration_csv_articles.csv
+  delimiter: ','
+  enclosure: '"'
+  header_offset: 0
+  ids:
+    - id
+  fields:
+    -
+      name: id
+      label: 'Unique Id'
+    -
+      name: title
+      label: Title
+    -
+      name: body
+      label: 'Post Body'
+    -
+      name: tags
+      label: 'Taxonomy Tag'
+    -
+      name: image
+      label: 'Image Field'
+process:
+  title: title
+  body: body
+  tags: field_tags
+  image: field_image
+  type:
+    plugin: default_value
+    default_value: article
+destination:
+  plugin: 'entity:node'

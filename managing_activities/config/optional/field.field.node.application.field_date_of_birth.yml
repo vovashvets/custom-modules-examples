@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_of_birth
+    - node.type.application
+  enforced:
+    module:
+      - managing_activities
+  module:
+    - datetime
+id: node.application.field_date_of_birth
+field_name: field_date_of_birth
+entity_type: node
+bundle: application
+label: 'Date of Birth'
+description: 'Date of Birth of an applicant. '
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: relative
+    default_date: '-18 years'
+default_value_callback: ''
+settings: {  }
+field_type: datetime

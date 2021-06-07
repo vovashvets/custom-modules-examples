@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.application.field_application_status
+    - field.field.node.application.field_date_of_birth
+    - field.field.node.application.field_email
+    - field.field.node.application.field_event_id
+    - field.field.node.application.field_first_name
+    - field.field.node.application.field_identification_number
+    - field.field.node.application.field_last_name
+    - node.type.application
+  enforced:
+    module:
+      - managing_activities
+  module:
+    - user
+id: node.application.teaser
+targetEntityType: node
+bundle: application
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_application_status: true
+  field_date_of_birth: true
+  field_email: true
+  field_event_id: true
+  field_first_name: true
+  field_identification_number: true
+  field_last_name: true

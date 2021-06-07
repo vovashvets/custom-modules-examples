@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Contains javascript_custom_module.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function javascript_custom_module_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the javascript_custom_module module.
+    case 'help.page.javascript_custom_module':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This is a custom generated module for JavaScript.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function javascript_custom_module_page_attachments(array &$attachments) {
+
+  // Getting the current route name.
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  // Load the library only if match with the selected page by route.
+  if (strcmp($route_name, 'javascript_custom.hello') == 0) {
+    $attachments['#attached']['library'][] = 'javascript_custom_module/js_playing_with_jquery';
+  }
+}

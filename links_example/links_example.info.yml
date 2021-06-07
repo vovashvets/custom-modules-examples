@@ -1,0 +1,5 @@
+name: Links Example
+type: module
+description: 'Just a basic case of Links Processing.'
+core: 8.x
+package: 'Workshop Drupal'

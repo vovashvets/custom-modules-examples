@@ -1,0 +1,5 @@
+services:
+  headers_manager_response_header:
+    class: Drupal\headers_manager\EventSubscriber\HeadersManagerResponseSubscriber
+    tags:
+      - { name: event_subscriber }

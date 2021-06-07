@@ -1,0 +1,5 @@
+.toolbar-icon-managing-activities-main:before,
+.toolbar-icon-managing-activities-main:active:before,
+.toolbar-icon-managing-activities-main.is-active:before {
+    background-image: url(images/managing_activities.svg);
+}

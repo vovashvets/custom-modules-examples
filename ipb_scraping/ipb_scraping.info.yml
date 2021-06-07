@@ -1,0 +1,6 @@
+name: IPB Scraping
+type: module
+description: 'Launch web scraping.'
+package: IPB
+core: 8.x
+core_version_requirement: ^8 || ^9

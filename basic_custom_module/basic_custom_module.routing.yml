@@ -1,0 +1,7 @@
+basic_custom.hello:
+  path: '/basic/custom'
+  defaults:
+    _controller: '\Drupal\basic_custom_module\Controller\BasicCustomExampleController::helloWorld'
+    _title: 'Basic Custom First Route'
+  requirements:
+    _access: 'TRUE'

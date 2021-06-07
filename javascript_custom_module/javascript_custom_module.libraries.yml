@@ -1,0 +1,43 @@
+js_hello_world_console:
+  js:
+    js/iife_execution_example.js: {}
+    js/hello_world_console.js: {}
+    js/iife_salute_example.js: {}
+
+js_hello_world_advanced:
+  js:
+    js/hello_world_advanced: {}
+  dependencies:
+    - core/drupalSettings
+
+js_custom_dialog_window:
+  js:
+    js/custom_dialog_window: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+
+js_testing_drupal_behaviors:
+  js:
+    js/testing_drupal_behaviors: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+    - core/jquery.once
+
+js_getting_unsplash_items:
+  js:
+    js/getting_unsplash_items: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+    - core/jquery.once
+
+js_playing_with_jquery:
+  js:
+    js/playing_with_jquery: {}
+  dependencies:
+    - core/jquery

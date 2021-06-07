@@ -1,0 +1,24 @@
+managing_activities.main:
+  title: 'Managing Activities'
+  description: 'Manage your attendance forms.'
+  route_name: managing_activities.main
+  parent: system.admin
+  weight: -11
+
+managing_activities.admin_settings_form:
+  title: 'Managing Activities Settings'
+  description: 'Manage the Settings for Attendance forms.'
+  parent: managing_activities.main
+  route_name: managing_activities.admin_settings_form
+
+managing_activities.applications_form:
+  title: 'Managing Activities Applications'
+  description: 'Manage Applications for Attendance forms.'
+  parent: managing_activities.main
+  route_name: managing_activities.applications_form
+  
+managing_activities.register_form:
+  title: 'Managing Activities Register'
+  description: 'Register Applications for Attendance.'
+  parent: managing_activities.main
+  route_name: managing_activities.register_form

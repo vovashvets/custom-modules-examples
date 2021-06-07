@@ -1,0 +1,21 @@
+{
+    "name": "managing_activities",
+    "type": "drupal-module",
+    "description": "It allows the management of attendees to an activity / event.",
+    "keywords": [
+    ],
+    "homepage": "https://www.drupal.org/project/managing_activities",
+    "authors": [
+    {
+      "name": "David Rodríguez",
+      "email": "davidjguru@therussianlullaby.com",
+      "homepage": "https://www.drupal.org/u/davidjguru",
+      "role": "Maintainer"
+    }],
+  "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/managing_activities",
+        "source": "http://cgit.drupalcode.org/managing_activities"
+    }
+}

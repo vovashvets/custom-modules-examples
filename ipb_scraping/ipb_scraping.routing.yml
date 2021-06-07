@@ -1,0 +1,20 @@
+ipb_scraping.main:
+  path: '/ipb-scraping'
+  defaults:
+    _controller: '\Drupal\ipb_scraping\Controller\IpbScrapingController::mainScraper'
+    _title: 'Scraping Resources'
+  requirements:
+    _permission: 'access content'
+
+ipb_scraping.item: 
+  path: '/ipb-scraping/blog/{id}'
+  defaults:
+    _controller: '\Drupal\ipb_scraping\Controller\IpbScrapingController::secondaryScraper'
+    _title: 'Scraping Blog Post'
+    id: 'content-check'
+  requirements:
+    _permission: 'access content'
+    _access: 'TRUE'
+    id: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+  options:
+    no_cache: 'True'

@@ -1,0 +1,5 @@
+name: Workshop Create Field
+type: module
+description: "Creating new Field with Plugins."
+package: 'Workshop Drupal'
+core: 8.x

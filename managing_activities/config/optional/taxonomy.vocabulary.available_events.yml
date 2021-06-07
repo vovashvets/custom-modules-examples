@@ -1,0 +1,10 @@
+langcode: es
+status: true
+dependencies:
+  enforced:
+    module:
+      - managing_activities
+name: 'Available Events'
+vid: available_events
+description: 'Taxonomy for registering all the available events in the Drupal Site.'
+weight: 0
